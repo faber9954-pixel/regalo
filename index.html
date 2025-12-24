@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Te gustó el regalo?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+            position: relative;
+            height: 120px;
+        }
+        
+        button {
+            padding: 15px 40px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        
+        #btnSi {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        #btnSi:hover {
+            background: #45a049;
+            transform: scale(1.1);
+        }
+        
+        #btnNo {
+            background: #f44336;
+            color: white;
+            position: absolute;
+            transition: all 0.3s ease;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .success {
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .emoji {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        
+        .message {
+            font-size: 24px;
+            color: #333;
+            margin-top: 20px;
+        }
+        
+        .celebration {
+            font-size: 60px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="question">
+            <div class="emoji">🎁</div>
+            <h1>¿Te gustó el regalo?</h1>
+            <div class="buttons">
+                <button id="btnSi">Sí ❤️</button>
+                <button id="btnNo">No 😢</button>
+            </div>
+        </div>
+        
+        <div id="success" class="hidden success">
+            <div class="celebration">🎉🎊🥳</div>
+            <div class="emoji">😊</div>
+            <div class="message">¡Qué bueno! ;D</div>
+        </div>
+    </div>
+
+    <script>
+        const btnSi = document.getElementById('btnSi');
+        const btnNo = document.getElementById('btnNo');
+        const question = document.getElementById('question');
+        const success = document.getElementById('success');
+        
+        let moveCount = 0;
+        
+        btnNo.addEventListener('mouseenter', moveButton);
+        btnNo.addEventListener('touchstart', moveButton);
+        
+        function moveButton(e) {
+            e.preventDefault();
+            moveCount++;
+            
+            const container = document.querySelector('.buttons');
+            const containerRect = container.getBoundingClientRect();
+            const btnRect = btnNo.getBoundingClientRect();
+            
+            // Generar posición aleatoria dentro del contenedor
+            const maxX = containerRect.width - btnRect.width;
+            const maxY = 100;
+            
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            btnNo.style.left = randomX + 'px';
+            btnNo.style.top = randomY + 'px';
+            
+            // Hacer el botón Sí más grande después de varios intentos
+            if (moveCount > 3) {
+                btnSi.style.transform = 'scale(1.2)';
+            }
+        }
+        
+        btnSi.addEventListener('click', () => {
+            question.classList.add('hidden');
+            success.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
