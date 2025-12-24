@@ -218,6 +218,79 @@
             25% { transform: translateX(-10px); }
             75% { transform: translateX(10px); }
         }
+        
+        .letter-button {
+            margin-top: 30px;
+            padding: 15px 35px;
+            font-size: 18px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .letter-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .letter-button:active {
+            transform: translateY(-1px);
+        }
+        
+        .letter-content {
+            margin-top: 30px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: left;
+            font-family: 'Courier New', monospace;
+            position: relative;
+            animation: letterUnfold 0.8s ease-out;
+            border: 2px solid #667eea;
+        }
+        
+        @keyframes letterUnfold {
+            0% {
+                opacity: 0;
+                transform: rotateX(-90deg) scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: rotateX(0) scale(1);
+            }
+        }
+        
+        .letter-content::before {
+            content: '✉️';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 30px;
+            background: white;
+            padding: 0 10px;
+        }
+        
+        .letter-content p {
+            margin: 0 0 15px 0;
+            line-height: 1.8;
+            color: #333;
+            font-size: 16px;
+        }
+        
+        .letter-content .signature {
+            text-align: right;
+            margin-top: 25px;
+            font-style: italic;
+            color: #667eea;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
@@ -239,6 +312,17 @@
             <div class="success-container">
                 <img src="gatito-rosa.jpg" alt="Gatito con rosa" id="catImage">
                 <div class="message">¡Qué bueno! ;D</div>
+                
+                <button class="letter-button" id="btnLetter">📜 Ver carta</button>
+                
+                <div id="letterContent" class="hidden">
+                    <div class="letter-content">
+                        <p>Perdón si fue muy poco, pero te programé esto de aquí solo por molestar.</p>
+                        <p>Espero que disfrutes la cosa que hice.</p>
+                        <p class="signature">PD: Feliz Navidad 🎄</p>
+                        <p class="signature">Att: Yarem</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -330,6 +414,14 @@
         btnSi.addEventListener('click', () => {
             question.classList.add('hidden');
             success.classList.remove('hidden');
+        });
+        
+        const btnLetter = document.getElementById('btnLetter');
+        const letterContent = document.getElementById('letterContent');
+        
+        btnLetter.addEventListener('click', () => {
+            letterContent.classList.remove('hidden');
+            btnLetter.style.display = 'none';
         });
     </script>
 </body>
