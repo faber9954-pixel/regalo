@@ -23,6 +23,26 @@
             overflow: hidden;
         }
         
+        /* Estrellas decorativas */
+        .stars {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
         /* Partículas flotantes sutiles */
         .particle {
             position: absolute;
@@ -37,18 +57,37 @@
             50% { transform: translateY(-30px) rotate(180deg); }
         }
         
+        /* Copos de nieve */
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            color: white;
+            font-size: 20px;
+            opacity: 0.8;
+            animation: fall linear infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+        
         .container {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 30px;
             padding: 50px 40px;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.3),
+                        0 0 0 1px rgba(255,255,255,0.2) inset;
             text-align: center;
-            max-width: 450px;
+            max-width: 500px;
             width: 100%;
             position: relative;
             z-index: 10;
             animation: slideIn 0.6s ease-out;
+            border: 3px solid rgba(255,255,255,0.3);
         }
         
         @keyframes slideIn {
@@ -62,32 +101,61 @@
             }
         }
         
-        .gift-icon {
-            font-size: 80px;
-            animation: bounce 2s infinite;
-            display: inline-block;
-            margin-bottom: 20px;
+        /* Decoración de esquinas */
+        .container::before,
+        .container::after {
+            content: '❄️';
+            position: absolute;
+            font-size: 30px;
+            opacity: 0.3;
         }
         
-        @keyframes bounce {
+        .container::before {
+            top: 15px;
+            left: 15px;
+        }
+        
+        .container::after {
+            top: 15px;
+            right: 15px;
+        }
+        
+        .cat-image-top {
+            max-width: 200px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 3px solid #667eea;
+            animation: floatImage 3s infinite ease-in-out;
+        }
+        
+        @keyframes floatImage {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+            50% { transform: translateY(-10px); }
         }
         
         h1 {
             color: #333;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             font-size: 32px;
             font-weight: 600;
-            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .subtitle {
             color: #666;
-            font-size: 16px;
+            font-size: 18px;
             margin-bottom: 40px;
-            min-height: 24px;
-            transition: all 0.3s ease;
+            min-height: 28px;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+        }
+        
+        .subtitle.fade {
+            opacity: 0;
         }
         
         .buttons {
@@ -131,14 +199,14 @@
         }
         
         #btnSi {
-            background: #4CAF50;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
             color: white;
             position: relative;
         }
         
         #btnSi:hover {
             transform: scale(1.1);
-            box-shadow: 0 12px 30px rgba(76, 175, 80, 0.4);
+            box-shadow: 0 12px 30px rgba(17, 153, 142, 0.5);
         }
         
         #btnSi:active {
@@ -146,14 +214,14 @@
         }
         
         #btnNo {
-            background: #f44336;
+            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
             color: white;
             position: absolute;
             transition: all 0.2s ease;
         }
         
         #btnNo:hover {
-            box-shadow: 0 12px 30px rgba(244, 67, 54, 0.4);
+            box-shadow: 0 12px 30px rgba(235, 51, 73, 0.5);
         }
         
         .hidden {
@@ -184,29 +252,31 @@
         
         #catImage {
             max-width: 100%;
+            max-height: 350px;
             border-radius: 20px;
             margin-bottom: 25px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
             animation: imageReveal 0.8s ease-out;
-            border: 3px solid #667eea;
+            border: 4px solid #667eea;
         }
         
         @keyframes imageReveal {
             from {
                 opacity: 0;
-                transform: scale(0.8);
+                transform: scale(0.8) rotateY(90deg);
             }
             to {
                 opacity: 1;
-                transform: scale(1);
+                transform: scale(1) rotateY(0);
             }
         }
         
         .message {
-            font-size: 32px;
+            font-size: 36px;
             font-weight: 600;
             color: #333;
             margin-top: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
         
         .shake {
@@ -223,19 +293,19 @@
             margin-top: 30px;
             padding: 15px 35px;
             font-size: 18px;
-            background: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
             border-radius: 12px;
             cursor: pointer;
             font-weight: 600;
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
             transition: all 0.3s ease;
         }
         
         .letter-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.6);
         }
         
         .letter-button:active {
@@ -244,15 +314,16 @@
         
         .letter-content {
             margin-top: 30px;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf0 100%);
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3),
+                        inset 0 0 0 2px rgba(255,255,255,0.5);
             text-align: left;
-            font-family: 'Courier New', monospace;
+            font-family: 'Georgia', serif;
             position: relative;
             animation: letterUnfold 0.8s ease-out;
-            border: 2px solid #667eea;
+            border: 3px solid #667eea;
         }
         
         @keyframes letterUnfold {
@@ -269,37 +340,64 @@
         .letter-content::before {
             content: '✉️';
             position: absolute;
-            top: -15px;
+            top: -20px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 30px;
+            font-size: 40px;
             background: white;
-            padding: 0 10px;
+            padding: 0 15px;
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .letter-content::after {
+            content: '🎄';
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            font-size: 25px;
+            opacity: 0.5;
         }
         
         .letter-content p {
             margin: 0 0 15px 0;
-            line-height: 1.8;
+            line-height: 1.9;
             color: #333;
-            font-size: 16px;
+            font-size: 17px;
+            text-align: justify;
         }
         
         .letter-content .signature {
             text-align: right;
             margin-top: 25px;
             font-style: italic;
-            color: #667eea;
-            font-weight: 600;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            font-size: 18px;
+        }
+        
+        /* Línea decorativa */
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #667eea, transparent);
+            margin: 20px 0;
+            opacity: 0.3;
         }
     </style>
 </head>
 <body>
+    <!-- Estrellas decorativas -->
+    <div class="stars"></div>
+    
     <!-- Partículas decorativas sutiles -->
     <div class="particles-container"></div>
     
     <div class="container">
         <div id="question">
-            <img src="gatito-rosa.jpg" alt="Gatito con rosa" style="max-width: 200px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+            <img src="gatito-rosa.jpg" alt="Gatito con rosa" class="cat-image-top">
             <h1 id="mainQuestion">¿Te gustó el regalo?</h1>
             <div class="subtitle" id="subtitle"></div>
             <div class="buttons">
@@ -318,7 +416,9 @@
                 <div id="letterContent" class="hidden">
                     <div class="letter-content">
                         <p>Perdón si fue muy poco, pero te programé esto de aquí solo por molestar.</p>
+                        <div class="divider"></div>
                         <p>Espero que disfrutes la cosa que hice.</p>
+                        <div class="divider"></div>
                         <p class="signature">PD: Feliz Navidad 🎄</p>
                         <p class="signature">Att: Yarem</p>
                     </div>
@@ -345,11 +445,29 @@
             "¿De verdad?",
             "No puede ser...",
             "Dale otra oportunidad",
-            "¿No te hagas el difícil!",
+            "¡No te hagas el difícil!",
             "Vamos, di que sí",
             "Sé que te gustó",
             "¡Ya dilo!"
         ];
+        
+        // Crear estrellas decorativas
+        function createStars() {
+            const starsContainer = document.querySelector('.stars');
+            
+            for (let i = 0; i < 30; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                const size = Math.random() * 3 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.animationDuration = Math.random() * 2 + 2 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
         
         // Crear partículas de fondo sutiles
         function createParticles() {
@@ -369,7 +487,28 @@
             }
         }
         
+        // Crear copos de nieve
+        function createSnowflakes() {
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const snowflake = document.createElement('div');
+                    snowflake.className = 'snowflake';
+                    snowflake.textContent = '❄';
+                    snowflake.style.left = Math.random() * 100 + '%';
+                    snowflake.style.animationDuration = Math.random() * 3 + 5 + 's';
+                    snowflake.style.opacity = Math.random() * 0.5 + 0.3;
+                    snowflake.style.fontSize = Math.random() * 10 + 15 + 'px';
+                    document.body.appendChild(snowflake);
+                    
+                    setTimeout(() => snowflake.remove(), 8000);
+                }, i * 500);
+            }
+        }
+        
+        createStars();
         createParticles();
+        createSnowflakes();
+        setInterval(createSnowflakes, 8000);
         
         btnNo.addEventListener('mouseenter', moveButton);
         btnNo.addEventListener('touchstart', moveButton);
@@ -381,9 +520,13 @@
             container.classList.add('shake');
             setTimeout(() => container.classList.remove('shake'), 500);
             
-            // Cambiar el mensaje
+            // Cambiar el mensaje sin parpadeo
             if (moveCount < messages.length) {
-                subtitle.textContent = messages[moveCount];
+                subtitle.classList.add('fade');
+                setTimeout(() => {
+                    subtitle.textContent = messages[moveCount];
+                    subtitle.classList.remove('fade');
+                }, 150);
             }
             
             moveCount++;
@@ -407,7 +550,6 @@
             }
             if (moveCount > 5) {
                 btnSi.style.transform = 'scale(1.3)';
-                btnSi.style.animation = 'bounce 0.5s infinite';
             }
         }
         
